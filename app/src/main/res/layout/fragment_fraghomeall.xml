@@ -1,0 +1,15 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.example.binar.binarbinariahya_1202152323_modul6.fraghomeall">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvhomeall"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</android.support.design.widget.CoordinatorLayout>

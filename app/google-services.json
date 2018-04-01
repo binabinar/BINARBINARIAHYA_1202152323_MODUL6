@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "560588299279",
+    "firebase_url": "https://binstagram-12.firebaseio.com",
+    "project_id": "binstagram-12",
+    "storage_bucket": "binstagram-12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560588299279:android:2d2b7d84119611fb",
+        "android_client_info": {
+          "package_name": "com.example.binar.binarbinariahya_1202152323_modul6"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560588299279-d73bp7v6hh8avdbaf0f72j5niuh1o0nk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.binar.binarbinariahya_1202152323_modul6",
+            "certificate_hash": "90a668c1401f8a32f14d8a361dce2a16d14daee8"
+          }
+        },
+        {
+          "client_id": "560588299279-cd30ip4nkgasdc6ovbh3s9hnsluuhspj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI32KIYXpm7RinzhCrxkZIE9NenzhD2wo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560588299279-cd30ip4nkgasdc6ovbh3s9hnsluuhspj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
