@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class Upload extends AppCompatActivity {
+    //inisialisasi variabel yang dibutuhkan
     private final int SELECT_PICTURE = 1;
     String idCurrentUser;
     StorageReference storage;
@@ -41,8 +42,9 @@ public class Upload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        setTitle("Upload Picture Here");
+        setTitle("Upload Picture Here"); //set title untuk halaman ini
 
+        //inisialisasi semua objek yang dibutuhkan
         idCurrentUser = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         dialog = new ProgressDialog(this);
         uploadgambar = findViewById(R.id.uploadgambar);
@@ -52,10 +54,12 @@ public class Upload extends AppCompatActivity {
         dataref = FirebaseDatabase.getInstance().getReference().child("post");
     }
 
+    //method untuk memilih foto
     public void setfoto(View view) {
         Intent pickImage = new Intent(Intent.ACTION_PICK);
         pickImage.setType("image/*");
 
+        //memulai intent untuk memilih foto dan mendapatkan hasil
         startActivityForResult(pickImage, 1);
     }
 
@@ -84,12 +88,16 @@ public class Upload extends AppCompatActivity {
         }
     }
 
+    //method untuk membuat post
     public void uploadgambar(View view) {
+        //menampilkan dialog
         dialog.setMessage("Uploading..");
         dialog.show();
 
+        //menentukan nama untuk file di database
         StorageReference filepath = storage.child(judul.getText().toString());
 
+        //mendapatkan gambar dari imageview untuk di upload
         uploadgambar.setDrawingCacheEnabled(true);
         uploadgambar.buildDrawingCache();
         Bitmap bitmap = uploadgambar.getDrawingCache();
@@ -98,26 +106,34 @@ public class Upload extends AppCompatActivity {
         byte[] data = barr.toByteArray();
         UploadTask task = filepath.putBytes(data);
 
+        //upload gambar ke firebase storage
         task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            //method ketika upload gambar berhasil
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+               //inisialisasi post untuk disimpan di firebase
                 String image = taskSnapshot.getDownloadUrl().toString();
                 databasePost user = new databasePost(caption.getText().toString(), image, judul.getText().toString(), idCurrentUser);
 
+                //menyimpan objek di database
                 dataref.push().setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    //saat menyimpan data berhasil
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(Upload.this, "Post uploaded", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
+                    //saat menyimpan data gagal
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(Upload.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+                //tutup dialog
                 dialog.dismiss();
             }
+            //ketika upload gambar gagal
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

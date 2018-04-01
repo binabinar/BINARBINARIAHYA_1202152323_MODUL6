@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Signin extends AppCompatActivity {
+    //inisialisasi variabel yang dibutuhkan
     EditText user, pass;
     ProgressDialog dialog;
     FirebaseAuth auth;
@@ -28,6 +29,7 @@ public class Signin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
+        //inisialisasi semua objek
         user = (EditText)findViewById(R.id.inputemail);
         pass = (EditText)findViewById(R.id.inputpass);
         dialog = new ProgressDialog(this);
@@ -46,27 +48,32 @@ public class Signin extends AppCompatActivity {
         };
     }
 
+    //method saat activity dimulai
     @Override
     protected void onStart() {
         super.onStart();
         auth.addAuthStateListener(listener);
     }
 
+    //method saat activity berhenti
     @Override
     protected void onStop() {
         super.onStop();
         auth.removeAuthStateListener(listener);
     }
 
+    //tombol saat signin diklik
     public void signin(View view) {
         dialog.setMessage("Logging in");
 
+        //membaca inputan user
         String inuser = user.getText().toString();
         String inpass = pass.getText().toString();
 
+        //perulangan jika inputan user kosong atau tidak
         if (!TextUtils.isEmpty(inuser)|| !TextUtils.isEmpty(inpass)){
             dialog.show();
-
+            //login dengan email dan password yang diinputkan user
             auth.signInWithEmailAndPassword(inuser, inpass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -82,12 +89,14 @@ public class Signin extends AppCompatActivity {
                 }
             });
         }else {
+            //saat salah satu field kosong
             Snackbar.make(findViewById(R.id.rootlogin), "Field is Empty", Snackbar.LENGTH_LONG).show();
             user.setError("Field is Required");
             pass.setError("Field is Required");
         }
     }
 
+    //method saat tombol signup diklik
     public void signup(View view) {
         //Menampilkan dialog
         dialog.setMessage("Creating account. . .");

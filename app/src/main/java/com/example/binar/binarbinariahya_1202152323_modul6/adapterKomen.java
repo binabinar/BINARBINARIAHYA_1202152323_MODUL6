@@ -17,15 +17,18 @@ public class adapterKomen extends RecyclerView.Adapter<adapterKomen.CommentHolde
     Context con;
     List<databaseKomen> list;
 
+    //constructor adapter
     public adapterKomen(Context con, List<databaseKomen> list) {
         this.con = con;
         this.list = list;
     }
+    //return viewholder dari recycler view
     @Override
     public CommentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new CommentHolder(LayoutInflater.from(con).inflate(R.layout.cv_comment, parent, false));
     }
 
+    //mengambil nilai dari list dengan view
     @Override
     public void onBindViewHolder(CommentHolder holder, int position) {
         databaseKomen cur = list.get(position);
@@ -34,11 +37,13 @@ public class adapterKomen extends RecyclerView.Adapter<adapterKomen.CommentHolde
 
     }
 
+    //mendapat jumlah item di recyclerview
     @Override
     public int getItemCount() {
         return list.size();
     }
 
+    //subclass dari viewholder
     class CommentHolder extends RecyclerView.ViewHolder {
         TextView sikomen, komen;
         public CommentHolder(View itemView) {

@@ -23,6 +23,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class fraghomeall extends Fragment {
+    //inisialisasi variabel yang dibutuhkan
     RecyclerView rv;
     DatabaseReference dataref;
     ArrayList<databasePost> list;
@@ -37,17 +38,21 @@ public class fraghomeall extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //inisialisasi semua objek
         View v = inflater.inflate(R.layout.fragment_fraghomeall, container, false);
         rv = v.findViewById(R.id.rvhomeall);
         list = new ArrayList<>();
         dataref = FirebaseDatabase.getInstance().getReference().child("post");
         ap = new adapterPost(list, this.getContext());
 
+        //menampilkan recyclerview
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this.getContext()));
         rv.setAdapter(ap);
 
+        //event listener ketika value pada firebase berubah
         dataref.addChildEventListener(new ChildEventListener() {
+            //dipakai untuk membaca seluruh posting dari firebase
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 databasePost post = dataSnapshot.getValue(databasePost.class);

@@ -24,6 +24,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class fraghomeuser extends Fragment {
+    //inisialisasi variabel
     RecyclerView rv;
     DatabaseReference ref;
     ArrayList<databasePost> list;
@@ -38,17 +39,21 @@ public class fraghomeuser extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //inisialisasi semua objek pada database
         View v = inflater.inflate(R.layout.fragment_fraghomeuser, container, false);
         ref = FirebaseDatabase.getInstance().getReference().child("post");
         list = new ArrayList<>();
         adapter = new adapterPost(list, this.getContext());
         rv = v.findViewById(R.id.rvhomeuser);
 
+        //menampilkan recyclerview
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this.getContext()));
         rv.setAdapter(adapter);
 
+        //eventlistener saat data pada firebase berubah
         ref.addChildEventListener(new ChildEventListener() {
+            //untuk membaca posting user dari firebase
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 databasePost cur = dataSnapshot.getValue(databasePost.class);

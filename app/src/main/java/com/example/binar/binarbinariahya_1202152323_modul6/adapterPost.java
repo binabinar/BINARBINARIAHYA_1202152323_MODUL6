@@ -18,16 +18,18 @@ public class adapterPost extends RecyclerView.Adapter<adapterPost.PostViewHolder
     private List<databasePost>list;
     private Context con;
 
+    //constructor dari adapter
     public adapterPost(List<databasePost> list, Context con){
         this.list = list;
         this.con = con;
     }
-
+    //return viewholder untuk adapter
     @Override
     public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new PostViewHolder(LayoutInflater.from(con).inflate(R.layout.cv_feed, parent, false));
     }
 
+    //mengikat nilai dari list dengan view
     @Override
     public void onBindViewHolder(PostViewHolder holder, int position) {
     databasePost current = list.get(position);
@@ -41,11 +43,13 @@ public class adapterPost extends RecyclerView.Adapter<adapterPost.PostViewHolder
 
     }
 
+    //mendapat jumlah item di recyclerview
     @Override
     public int getItemCount() {
         return list.size();
     }
 
+    //subclass sebagai viewholder
     class PostViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
         TextView user, judul, caption;
@@ -56,6 +60,7 @@ public class adapterPost extends RecyclerView.Adapter<adapterPost.PostViewHolder
             judul = itemView.findViewById(R.id.postjudul);
             caption = itemView.findViewById(R.id.postdeskripsi);
 
+            //operasi ketika item pada recyclerview diklik
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

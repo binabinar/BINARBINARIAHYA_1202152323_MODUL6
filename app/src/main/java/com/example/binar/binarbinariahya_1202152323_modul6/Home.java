@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
+    //inisialisasi variabel
     ViewPager vp;
     TabLayout tl;
     AppBarLayout ab;
@@ -30,17 +31,20 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        
+        //inisialisasi semua objek
         vp = findViewById(R.id.vp);
         tl = findViewById(R.id.tabs);
         ab = findViewById(R.id.appbar);
         tbr = findViewById(R.id.tb);
         auth = FirebaseAuth.getInstance();
-        
+
+        //menentukan toolbar
         setSupportActionBar(tbr);
         setupPager(vp);
+        //mengikat tablayout dengan viewpager
         tl.setupWithViewPager(vp);
     }
+    //menetapkan adapter untuk viewpager
     public void setupPager(ViewPager v) {
         VPAdapter adapter = new VPAdapter(getSupportFragmentManager());
         adapter.addFragment(new fraghomeall(), "NEWEST");
@@ -48,12 +52,14 @@ public class Home extends AppCompatActivity {
 
         v.setAdapter(adapter);
     }
+    //method untuk membuat menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
 
+    //method saat menu logout dipilih
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.signout){
@@ -64,11 +70,12 @@ public class Home extends AppCompatActivity {
         return true;
     }
 
-
+    //method saat tombol post diklik
     public void post(View view) {
         startActivity(new Intent(Home.this, Upload.class));
     }
 
+    //subclass sebagai adapter untuk viewpager dengan fragmentnya
     class VPAdapter extends FragmentPagerAdapter{
         private final List<Fragment> listfragment = new ArrayList<>();
         private final List<String> listfragmenttitle = new ArrayList<>();

@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class post extends AppCompatActivity {
+    //inisialisasi variabel yang diperlukan
     TextView user, judul, caption;
     ImageView image;
     EditText komentar;
@@ -40,8 +41,9 @@ public class post extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        setTitle("Binstagram");
+        setTitle("Binstagram"); //membuat title pada halaman post
 
+        //inisialisasi semua objek
         user = findViewById(R.id.yangupload);
         image = findViewById(R.id.gambardaripost);
         komentar = findViewById(R.id.srckomentar);
@@ -53,10 +55,12 @@ public class post extends AppCompatActivity {
         list = new ArrayList<>();
         adapter = new adapterKomen(this, list);
 
+        //menampilkan recyclerview
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
 
+        //memberikan tulisan atau nilai untuk view pada class
         String [] usernow = FirebaseAuth.getInstance().getCurrentUser().getEmail().split("@");
         usernya = usernow[0];
         idfoto = getIntent().getStringExtra("key");
@@ -65,7 +69,9 @@ public class post extends AppCompatActivity {
         caption.setText(getIntent().getStringExtra("caption"));
         Glide.with(this).load(getIntent().getStringExtra("image")).override(250,250).into(image);
 
+        //eventlistener saat data berubah di firebase
         dref.addChildEventListener(new ChildEventListener(){
+            //membaca comment pada post ini dari firebase
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     databaseKomen cur = dataSnapshot.getValue(databaseKomen.class);
@@ -96,11 +102,15 @@ public class post extends AppCompatActivity {
         });
     }
 
+    //method untuk post comment
     public void postcomment(View view) {
+        //menampilkan dialig
         pd.setMessage("Adding comment");
         pd.show();
 
+        //inisialisasi objek
         databaseKomen com = new databaseKomen(usernya, komentar.getText().toString(), idfoto);
+       //input data ke firebase
         dref.push().setValue(com).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
